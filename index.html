@@ -112,6 +112,14 @@
 .media-record-preview .archive-region{border-width:2px}
 @media(max-width:650px){.archive-document-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.archive-media-window{padding:13px}.archive-record-text{grid-template-columns:1fr}.media-people-picker{grid-template-columns:1fr}}
 @media(max-width:380px){.archive-document-grid,.archive-media-grid{grid-template-columns:1fr}}
+
+/* PDF-first record viewing: in-place preview with direct archived-PDF fallback. */
+.archive-pdf-box{border:1px solid #dbcbb7;background:#f7f0e7;border-radius:8px;overflow:hidden;margin:14px 0}
+.archive-pdf-preview{width:100%;height:min(72vh,770px);min-height:390px;display:block;border:0;background:white}
+.archive-pdf-actions{display:flex;flex-wrap:wrap;gap:9px 15px;align-items:center;padding:12px 13px;border-top:1px solid #dbcbb7}
+.archive-pdf-link{font-weight:750;color:#91251f;text-underline-offset:3px}
+.archive-pdf-actions span{font-size:11px;color:#73665e}
+@media(max-width:600px){.archive-pdf-preview{min-height:380px;height:61vh}.archive-media-window{padding:15px}}
 </style></head>
 <body><header class="hero"><div class="frame"><div class="kicker">Our family history · 2026 family edition</div><h1>The Schreiner Family</h1><p>A living family tree from Germany to Milwaukee and Pittsburgh, with stories, records, and a small Dugas branch.</p><div class="hero-meta"><span>Tap a name for a biography</span><span>Share with family</span><span>Careful with uncertain details</span></div></div></header><div class="rule"></div>
 <nav class="topnav"><div class="frame navscroll" role="tablist" aria-label="Family views">
@@ -443,7 +451,7 @@ function openArchiveMedia(id){
  const source=m.source_url&&/^https:\/\//.test(m.source_url)?`<a href="${html(m.source_url)}" target="_blank" rel="noopener noreferrer">Open original source ↗</a>`:'';
  const url=archiveUrl(m.storage_path);
  const highlights=Array.isArray(m.highlight_regions)?m.highlight_regions.filter(x=>x&&typeof x==='object'):[];
- const media=isScannedImage(m)?`<div class="archive-scan-wrap"><img src="${html(url)}" alt="${html(m.title)}"/>${m.kind==='record'?highlights.map(h=>`<span class="archive-region" style="${recordRectangle(h)}"></span>`).join(''):''}</div>`:`<p><a href="${html(url)}" target="_blank" rel="noopener noreferrer">View original PDF ↗</a></p>`;
+ const media=isScannedImage(m)?`<div class="archive-scan-wrap"><img src="${html(url)}" alt="${html(m.title)}"/>${m.kind==='record'?highlights.map(h=>`<span class="archive-region" style="${recordRectangle(h)}"></span>`).join(''):''}</div>`:`<div class="archive-pdf-box"><iframe class="archive-pdf-preview" src="${html(url)}#toolbar=1" title="${html(m.title)} PDF" loading="lazy"></iframe><div class="archive-pdf-actions"><a class="archive-pdf-link" href="${html(url)}" target="_blank" rel="noopener noreferrer">Open full PDF ↗</a><span>Opens our archived copy — no FamilySearch sign-in required</span></div></div>`;
  const transcript=m.kind==='record'?(m.transcription||m.translation?`<div class="archive-record-text">${m.transcription?`<div><h3>Transcription</h3><pre>${html(m.transcription)}</pre></div>`:''}${m.translation?`<div><h3>Translation</h3><pre>${html(m.translation)}</pre></div>`:''}</div>`:'<p class="mini">A transcription or translation has not yet been added.</p>'):'';
  $('archiveMediaView').innerHTML=`<div class="arch-smallcaps">${m.kind==='record'?'Original document · Record Reader':'Family photograph'}</div><h2 id="archiveMediaTitle">${html(m.title)}</h2><p>${html([m.date_label,m.archive_name].filter(Boolean).join(' · '))}</p>${media}<p>${html(m.caption||'')}</p>${credits}${transcript}${source?`<p>${source}</p>`:''}`;
  $('archiveMediaModal').hidden=false;document.body.style.overflow='hidden';$('archiveMediaClose').focus();
