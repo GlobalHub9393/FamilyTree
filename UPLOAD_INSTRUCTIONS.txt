@@ -1,0 +1,14 @@
+FamilyTree Record Batch - November 21, 2026
+
+UPLOAD ALL FOUR FILES TO THE ROOT OF YOUR GITHUB FamilyTree REPOSITORY:
+  index.html
+  research_1925_uncle_bill_numident.pdf
+  research_1922_uncle_frank_numident.pdf
+  research_1920_uncle_lou_numident.pdf
+
+You do not need to re-upload the existing seven PDF files.
+The new index keeps all other website pages and records intact.
+
+Once uploaded, new records can be added to the public archive through Supabase family_media.external_url without another index update.
+
+The PDF files contain typed summaries and family-supplied screenshots of FamilySearch indexed records. Check FamilySearch's terms or the underlying record custodian's rights before making screenshots publicly available. If needed, publish only the typed abstracts.

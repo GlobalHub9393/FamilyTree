@@ -155,7 +155,7 @@
 </section>
 <section class="panel" id="people"><h2 class="section-title">Everyone in the family register</h2><p class="lede">Tap a name to open their profile. This directory also includes a few documented spouses and descendants that would crowd the main tree.</p><div class="searchrow"><input class="find" type="search" id="personSearch" placeholder="Find a name, nickname, or branch…" aria-label="Search family biographies"><span class="mini" id="foundCount"></span></div><div class="bios-grid" id="directory"></div><p class="empty" id="noresults" hidden>No matches. Try a first name or nickname.</p></section>
 <section class="panel" id="records"><h2 class="section-title">The documents behind our family stories</h2><p class="lede">Open the original PDF scans directly in our family archive. No FamilySearch account is needed to view these copies. Uncertain identifications are clearly labeled as research candidates.</p>
-<div class="archive-document-head"><span class="arch-smallcaps">Family PDF collection</span><h3>Scanned records · 7 documents</h3><p>Click a record below to view its complete two-page PDF (scan plus source citation) without leaving FamilyTree. Records are also linked from the relevant biographies.</p></div>
+<div class="archive-document-head"><span class="arch-smallcaps">Family PDF collection</span><h3>Family records and scanned documents</h3><p>Click a record below to view its complete two-page PDF (scan plus source citation) without leaving FamilyTree. Records are also linked from the relevant biographies.</p></div>
 <div id="archiveDocumentList" class="archive-document-grid"><p class="mini">Loading archived documents…</p></div>
 <h3 class="category-title">Additional source references</h3><p class="mini">These optional external reference links may require a FamilySearch account. You do not need them to open the archived PDFs above.</p><div class="sources" id="sourceShelf"></div>
 <hr class="divider"><div class="research"><div class="tag">Current research focus</div><h3>What happened to Louis Sr.?</h3><p>His death year and obituary have not been proven. The working hypothesis is a Pennsylvania death around the 1920s, but this needs independent verification. There is a conflicting 1937 Social Security transcription, so a fixed death interval would be premature without checking that identity.</p><ul><li>Confirm the 1920 and 1930 household records and whether Grace was described as widowed.</li><li>Search the Pennsylvania state death-certificate index for Louis/Ludwig Schreiner, especially Allegheny County.</li><li>Once a death date is known, search Pittsburgh newspaper death notices within several days of it.</li><li>Compare any certificate’s wife, occupation, birthplace and relatives before attaching it to our Louis.</li></ul><p><strong>Also unresolved:</strong> Louis Sr.’s parents and whether the April 1872 baptism in Lam records the same person. No proposed parents are shown in this family tree.</p></div></section>
@@ -419,6 +419,7 @@ const BUNDLED_PDFS=[{"id":"local-1900","title":"1900 Pittsburgh census — Louis
 const BUNDLED_PDF_PEOPLE=BUNDLED_PDFS.flatMap(m=>m.people.map(person_id=>({media_id:m.id,person_id})));
 function viewableMediaUrl(m){
  if(m.local_path)return new URL(m.local_path,document.baseURI).href;
+ if(m.external_url&&/^https:\/\//.test(m.external_url))return m.external_url;
  return archiveUrl(m.storage_path);
 }
 
@@ -432,7 +433,7 @@ function archiveTile(m){
 async function loadArchiveMedia(){
  try{
  const [media,people]=await Promise.all([
-  select('family_media','id,kind,title,caption,storage_path,mime_type,date_label,archive_name,source_url,transcription,translation,highlight_regions,created_at','is_public=eq.true&order=created_at.desc'),
+  select('family_media','id,kind,title,caption,storage_path,external_url,mime_type,date_label,archive_name,source_url,transcription,translation,highlight_regions,created_at','is_public=eq.true&order=created_at.desc'),
   select('family_media_people','media_id,person_id')
  ]);
  archiveMedia=[...BUNDLED_PDFS,...(media||[])];archiveMediaPeople=[...BUNDLED_PDF_PEOPLE,...(people||[])];
