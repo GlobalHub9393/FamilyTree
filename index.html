@@ -71,6 +71,47 @@
 .household-footnote{margin:11px 0 0;font-size:11px;color:#88766c;line-height:1.5}
 .households-postscript{font-size:12px;color:#807066;border-top:1px solid var(--line);margin:25px 0 0;padding-top:17px;max-width:830px}
 @media(max-width:690px){.household-grid{grid-template-columns:1fr}.household-register-card{padding:17px 16px}.household-era{margin-top:28px}.household-era h3{font-size:22px}}
+
+
+/* Family photo galleries and historical record reader */
+.profile-photo-gallery,.profile-record-gallery{margin-top:24px}
+.archive-media-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.archive-media-tile{border:1px solid #e3d3c1;background:#fffdf9;border-radius:10px;overflow:hidden;padding:0;text-align:left;display:flex;flex-direction:column;color:inherit}
+.archive-media-tile:focus-visible{outline:3px solid #c2933d;outline-offset:2px}
+.archive-media-tile img{width:100%;height:132px;object-fit:cover;display:block;background:#eee3d7}
+.archive-media-tile .archive-media-tile-text{padding:10px 12px;font-size:13px;font-weight:700;line-height:1.3}
+.archive-media-tile .archive-media-tile-detail{font-size:11px;color:#76675b;margin-top:4px;font-weight:400}
+.archive-link-button{color:#9b2b29;border:1px solid #d9c8b5;border-radius:7px;background:#fff9f1;padding:9px 12px;margin:9px 9px 0 0;cursor:pointer;font-size:12px;font-weight:750}
+.archive-link-button:hover{background:#f8ecdd}
+.archive-document-head{margin:36px 0 14px}
+.archive-document-head h3{font:normal 26px Georgia,serif;margin:5px 0}
+.archive-document-head p{color:#75695e;max-width:750px;margin:4px 0 16px;font-size:13px}
+.archive-document-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:25px}
+.archive-document-grid .archive-media-tile img{height:170px}
+.archive-media-modal[hidden]{display:none!important}
+.archive-media-modal{position:fixed;inset:0;z-index:150;background:rgba(17,13,12,.86);display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto}
+.archive-media-window{position:relative;background:#fffaf3;color:#29201f;width:min(940px,100%);max-height:calc(100vh - 28px);overflow:auto;border-radius:10px;padding:22px;box-shadow:0 20px 60px #0006}
+.archive-media-close{position:sticky;top:0;float:right;background:#201a19;color:#fff;border:0;border-radius:7px;padding:8px 14px;z-index:5}
+.archive-media-window h2{font:normal 29px Georgia,serif;line-height:1.15;margin:8px 0 9px}
+.archive-media-window p{font-size:14px;color:#5f514a}
+.archive-photo-large{width:100%;height:auto;max-height:65vh;object-fit:contain;border-radius:6px;background:#e9dfd3}
+.archive-scan-wrap{position:relative;display:inline-block;max-width:100%;margin:10px 0;line-height:0;background:#e9dfd3}
+.archive-scan-wrap img{display:block;max-width:100%;height:auto;max-height:none}
+.archive-region{position:absolute;border:2px solid #d02c24;background:rgba(251,205,44,.22);pointer-events:none;box-shadow:0 0 0 1px #fff6;}
+.archive-record-text{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:16px 0}
+.archive-record-text>div{background:#f3ece2;padding:15px;border-radius:8px}
+.archive-record-text h3{margin:0 0 8px;font:normal 21px Georgia,serif}
+.archive-record-text pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.55 Georgia,serif;color:#42312b;margin:0}
+.media-people-picker{max-height:180px;overflow:auto;border:1px solid #ddcdb9;background:#fffdf9;border-radius:8px;padding:6px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+.media-people-picker label{display:flex;align-items:center;gap:6px;padding:7px;font-size:12px;border-radius:5px;cursor:pointer}
+.media-people-picker label:has(input:checked){background:#fcf0df;color:#8f2725}
+.media-people-picker label[hidden]{display:none}
+.media-record-preview{position:relative;max-width:680px;user-select:none;touch-action:none;border:2px dashed #d5bfa9;margin:12px 0}
+.media-record-preview img{display:block;width:100%;height:auto;pointer-events:none}
+.record-preview-marks{position:absolute;inset:0;pointer-events:none}
+.media-record-preview .archive-region{border-width:2px}
+@media(max-width:650px){.archive-document-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.archive-media-window{padding:13px}.archive-record-text{grid-template-columns:1fr}.media-people-picker{grid-template-columns:1fr}}
+@media(max-width:380px){.archive-document-grid,.archive-media-grid{grid-template-columns:1fr}}
 </style></head>
 <body><header class="hero"><div class="frame"><div class="kicker">Our family history · 2026 family edition</div><h1>The Schreiner Family</h1><p>A living family tree from Germany to Milwaukee and Pittsburgh, with stories, records, and a small Dugas branch.</p><div class="hero-meta"><span>Tap a name for a biography</span><span>Share with family</span><span>Careful with uncertain details</span></div></div></header><div class="rule"></div>
 <nav class="topnav"><div class="frame navscroll" role="tablist" aria-label="Family views">
@@ -105,7 +146,10 @@
 <div class="note">Aloisius and Margaret are documented as Donald’s parents; the specific birth dates and Margaret’s maiden name have not been independently verified in this family edition.</div>
 </section>
 <section class="panel" id="people"><h2 class="section-title">Everyone in the family register</h2><p class="lede">Tap a name to open their profile. This directory also includes a few documented spouses and descendants that would crowd the main tree.</p><div class="searchrow"><input class="find" type="search" id="personSearch" placeholder="Find a name, nickname, or branch…" aria-label="Search family biographies"><span class="mini" id="foundCount"></span></div><div class="bios-grid" id="directory"></div><p class="empty" id="noresults" hidden>No matches. Try a first name or nickname.</p></section>
-<section class="panel" id="records"><h2 class="section-title">The documents behind our family stories</h2><p class="lede">Each person’s biography links to original records or reliable obituary sources when available. Some historical records require a free FamilySearch account. Another research goal is finding a coat of arms actually documented for our particular Schreiner family—not a generic crest sold under the surname.</p><div class="sources" id="sourceShelf"></div><hr class="divider"><div class="research"><div class="tag">Current research focus</div><h3>What happened to Louis Sr.?</h3><p>His death year and obituary have not been proven. The working hypothesis is a Pennsylvania death around the 1920s, but this needs independent verification. There is a conflicting 1937 Social Security transcription, so a fixed death interval would be premature without checking that identity.</p><ul><li>Confirm the 1920 and 1930 household records and whether Grace was described as widowed.</li><li>Search the Pennsylvania state death-certificate index for Louis/Ludwig Schreiner, especially Allegheny County.</li><li>Once a death date is known, search Pittsburgh newspaper death notices within several days of it.</li><li>Compare any certificate’s wife, occupation, birthplace and relatives before attaching it to our Louis.</li></ul><p><strong>Also unresolved:</strong> Louis Sr.’s parents and whether the April 1872 baptism in Lam records the same person. No proposed parents are shown in this family tree.</p></div></section>
+<section class="panel" id="records"><h2 class="section-title">The documents behind our family stories</h2><p class="lede">Each person’s biography links to original records or reliable obituary sources when available. Some historical records require a free FamilySearch account. Another research goal is finding a coat of arms actually documented for our particular Schreiner family—not a generic crest sold under the surname.</p><div class="sources" id="sourceShelf"></div>
+<div class="archive-document-head"><span class="arch-smallcaps">New in the archive</span><h3>Record Reader</h3><p>Original scans with a readable transcription, optional translation, and highlighted names. Documents can appear in every relative’s profile they mention.</p></div>
+<div id="archiveDocumentList" class="archive-document-grid"><p class="mini">Loading archived documents…</p></div>
+<hr class="divider"><div class="research"><div class="tag">Current research focus</div><h3>What happened to Louis Sr.?</h3><p>His death year and obituary have not been proven. The working hypothesis is a Pennsylvania death around the 1920s, but this needs independent verification. There is a conflicting 1937 Social Security transcription, so a fixed death interval would be premature without checking that identity.</p><ul><li>Confirm the 1920 and 1930 household records and whether Grace was described as widowed.</li><li>Search the Pennsylvania state death-certificate index for Louis/Ludwig Schreiner, especially Allegheny County.</li><li>Once a death date is known, search Pittsburgh newspaper death notices within several days of it.</li><li>Compare any certificate’s wife, occupation, birthplace and relatives before attaching it to our Louis.</li></ul><p><strong>Also unresolved:</strong> Louis Sr.’s parents and whether the April 1872 baptism in Lam records the same person. No proposed parents are shown in this family tree.</p></div></section>
 
 <section class="panel archive-page" id="stories">
   <div class="archive-heading"><span class="archive-eyebrow">The family collection / 01</span><h2>Family Stories</h2><p>Old stories deserve a place to live. Read the memories relatives have shared, or add one of your own. Every story is reviewed before it becomes part of the archive.</p></div>
@@ -140,17 +184,42 @@
 </section>
 <section class="panel archive-page" id="admin">
   <div class="archive-heading"><span class="archive-eyebrow">Editor access / Private</span><h2>The Editor's Desk</h2><p>Review new memories, follow leads, respond to research suggestions, and quietly correct family records.</p></div><div class="archive-rule"></div>
-  <div id="editorLogin" class="paper-form editor-signin"><span class="arch-smallcaps">Family archive · Editor sign-in</span><p>For editing and reviewing private submissions. Family visitors don't need to sign in.</p><form id="adminLoginForm"><div class="form-row"><label for="adminEmail">Email</label><input id="adminEmail" type="email" autocomplete="username" required/></div><div class="form-row"><label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" required/></div><button class="archive-action" type="submit">Sign in to editor <span>↗</span></button><div id="loginFeedback" class="form-feedback" role="status"></div></form><p class="field-hint">Editor sign-in uses Supabase Authentication so family research requests really remain private. One-time account setup is needed in Supabase.</p></div>
-  <div id="editorWorkbench" hidden><div class="editor-identity"><span id="adminWho">Signed in as editor</span><button class="order-toggle" id="adminLogout">Sign out</button></div><div class="archive-filter admin-subnav" role="group" aria-label="Editor sections"><button class="mini-filter active" data-admin-view="requests">Requests <span id="requestCounter"></span></button><button class="mini-filter" data-admin-view="review">Stories <span id="reviewCounter"></span></button><button class="mini-filter" data-admin-view="leads">Research leads</button><button class="mini-filter" data-admin-view="profiles">Biographies</button><button class="mini-filter" data-admin-view="timeline">Timeline</button></div>
+  <div id="editorLogin" class="paper-form editor-signin"><span class="arch-smallcaps">Family archive · Editor sign-in</span><p>For editing and reviewing private submissions. Family visitors don't need to sign in.</p><form id="adminLoginForm"><div class="form-row"><label for="adminEmail">Email</label><input id="adminEmail" type="email" autocomplete="username" required/></div><div class="form-row"><label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" required/></div><button class="archive-action" type="submit">Sign in to editor <span>↗</span></button><div id="loginFeedback" class="form-feedback" role="status"></div></form><p class="field-hint">No editor account has been set up yet. If this is your first visit, create an account using an email you control and your own password. Confirm the email, then the account must be approved in Supabase before you can view the private inbox.</p>
+<div class="form-end" style="justify-content:flex-start;gap:12px;flex-wrap:wrap"><button type="button" class="order-toggle" id="adminCreateAccount">Create editor account</button><button type="button" class="order-toggle" id="adminResetPassword">Forgot password?</button></div>
+<p class="field-hint">Only approved editor accounts can add photographs, upload records, and manage private family submissions. Don't share your password.</p></div>
+  <div id="editorWorkbench" hidden><div class="editor-identity"><span id="adminWho">Signed in as editor</span><button class="order-toggle" id="adminLogout">Sign out</button></div><div class="archive-filter admin-subnav" role="group" aria-label="Editor sections"><button class="mini-filter active" data-admin-view="requests">Requests <span id="requestCounter"></span></button><button class="mini-filter" data-admin-view="review">Stories <span id="reviewCounter"></span></button><button class="mini-filter" data-admin-view="leads">Research leads</button><button class="mini-filter" data-admin-view="profiles">Biographies</button><button class="mini-filter" data-admin-view="timeline">Timeline</button><button class="mini-filter" data-admin-view="media">Photos & records</button></div>
   <div class="admin-view" id="adminRequests"><div class="admin-sectionhead"><h3>Research suggestions</h3><p>Only you can see this inbox.</p></div><div id="requestList" class="admin-stack"></div></div>
   <div class="admin-view" id="adminReview" hidden><div class="admin-sectionhead"><h3>Story submissions</h3><p>Approve a memory before the family can read it, or leave it pending.</p></div><div id="reviewList" class="admin-stack"></div></div>
   <div class="admin-view" id="adminLeads" hidden><div class="admin-sectionhead"><h3>Research notebook</h3><p>Update leads without placing unverified ancestors in the tree.</p></div><form id="leadEditorForm" class="paper-form compact-form"><input id="leadEditId" type="hidden"/><div class="form-row"><label for="leadEditTitle">Lead title</label><input required id="leadEditTitle" maxlength="160" minlength="3" placeholder="Find the 1920s Pittsburgh death notice"/></div><div class="form-row"><label for="leadEditSummary">What we know</label><textarea id="leadEditSummary" rows="3"></textarea></div><div class="form-row"><label for="leadEditNotes">Next steps / notes</label><textarea id="leadEditNotes" rows="3"></textarea></div><div class="form-pair"><label>Lead status<select id="leadEditHeat"><option value="hot">Hot</option><option value="neutral" selected>Neutral</option><option value="cold">Cold</option></select></label><label>Source URL<input type="url" id="leadEditUrl" placeholder="https://…"/></label></div><label class="line-checkbox"><input type="checkbox" id="leadEditPublic" checked/> Show in public research notebook</label><div class="form-end"><button type="button" class="order-toggle" id="leadEditClear">New lead</button><button class="archive-action" type="submit">Save lead</button></div><div id="leadEditFeedback" class="form-feedback" role="status"></div></form><div id="adminLeadList" class="admin-stack"></div></div>
   <div class="admin-view" id="adminProfiles" hidden><div class="admin-sectionhead"><h3>Edit a family biography</h3><p>Small corrections appear in the main tree and biographies without editing the website. This first version edits the 34 existing family profiles; the main tree layout stays curated.</p></div><form id="bioEditorForm" class="paper-form compact-form"><label class="form-row">Person<select id="bioSelect"></select></label><div class="form-row"><label for="bioName">Name</label><input id="bioName" required maxlength="180"/></div><div class="form-pair"><label>Dates / life years<input id="bioDates" maxlength="180"/></label><label>Relationship line<input id="bioRelation" maxlength="220"/></label></div><div class="form-row"><label for="bioSummary">Biography summary</label><textarea id="bioSummary" rows="5"></textarea></div><div class="form-row"><label for="bioFacts">Life details — one per line, formatted: Year | Fact</label><textarea id="bioFacts" rows="8"></textarea></div><div class="form-end"><p>The main tree is preserved. These fields update existing member cards and biographies.</p><button class="archive-action" type="submit">Save biography</button></div><div class="form-feedback" id="bioFeedback" role="status"></div></form></div>
   <div class="admin-view" id="adminTimeline" hidden><div class="admin-sectionhead"><h3>Manage history entries</h3><p>Births, marriages, achievements, history and Pittsburgh sports. No death notices in the timeline.</p></div><form id="historyEditorForm" class="paper-form compact-form"><input type="hidden" id="historyEditId"/><div class="form-pair"><label>Year<input type="number" id="historyEditYear" required min="1500" max="2200"/></label><label>Category<select id="historyEditCategory"><option value="family">Family</option><option value="history">History</option><option value="sports">Pittsburgh sports</option></select></label></div><div class="form-row"><label>Event title<input id="historyEditTitle" required minlength="3" maxlength="180"/></label></div><div class="form-row"><label>Short description<textarea id="historyEditBody" rows="3"></textarea></label></div><div class="form-pair"><label>Date label <span class="optional">optional</span><input id="historyEditYearLabel" placeholder="July 20, 1969"/></label><label>Source link <span class="optional">optional</span><input id="historyEditUrl" type="url" placeholder="https://…"/></label></div><label class="line-checkbox"><input id="historyEditPublic" type="checkbox" checked/> Publish on timeline</label><div class="form-end"><button type="button" class="order-toggle" id="historyEditClear">New event</button><button class="archive-action" type="submit">Save event</button></div><div class="form-feedback" id="historyEditFeedback" role="status"></div></form><div id="adminHistoryList" class="admin-stack"></div></div>
+
+  <div class="admin-view" id="adminMedia" hidden>
+    <div class="admin-sectionhead"><h3>Add photographs & original records</h3><p>Tag everyone pictured or named. One upload will then appear under each selected person’s biography. Files become publicly viewable when you save them.</p></div>
+    <form id="archiveMediaForm" class="paper-form compact-form">
+      <div class="form-pair"><label>What are you adding?<select id="mediaKind"><option value="photo">Family photograph</option><option value="record">Historical record / document</option></select></label><label>Photo or record file<input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" required/></label></div>
+      <div class="form-row"><label>Title<input id="mediaTitle" required minlength="2" maxlength="180" placeholder="The family at Christmas, circa 1960"/></label></div>
+      <div class="form-pair"><label>Date or approximate period<input id="mediaDateLabel" maxlength="100" placeholder="Summer 1968 / 1900 census"/></label><label>Archive / collection<input id="mediaArchiveName" maxlength="180" placeholder="Family album / Matricula Lam"/></label></div>
+      <div class="form-row"><label>Description or caption<textarea id="mediaCaption" rows="3" maxlength="7000" placeholder="Where, who, and how this record was found"></textarea></label></div>
+      <div class="form-row"><label>Who is pictured or mentioned? <span class="req">*</span></label><input id="mediaPeopleFilter" placeholder="Search family members…" type="search"/><div id="mediaPeoplePicker" class="media-people-picker" aria-label="Select all people connected to this photograph"></div><p class="field-hint">Select more than one relative to show the same photo in all their galleries.</p></div>
+      <div id="recordMediaFields" hidden>
+        <div class="form-row"><label>Original record URL <span class="optional">optional</span><input id="mediaSourceUrl" type="url" placeholder="https://data.matricula-online.eu/…"/></label></div>
+        <div class="form-row"><label>Transcription<textarea id="mediaTranscription" rows="6" placeholder="Exactly what the source says, preserving spelling…"></textarea></label></div>
+        <div class="form-row"><label>Translation <span class="optional">optional</span><textarea id="mediaTranslation" rows="6" placeholder="English translation of the German or Latin text…"></textarea></label></div>
+        <div class="form-row"><label>Highlight the relevant text on a scanned image</label><p class="field-hint">Choose a JPG, PNG or WebP record, then drag across the person’s name or relevant text. The saved highlight appears in the public record reader.</p><div id="mediaRecordPreview" class="media-record-preview" hidden><img id="mediaRecordPreviewImage" alt="Record scan preview"/><div id="mediaRecordPreviewMarks" class="record-preview-marks"></div></div><button class="order-toggle" type="button" id="mediaClearMarks">Clear highlights</button><span id="mediaMarksCount" class="mini" aria-live="polite"></span></div>
+      </div>
+      <p class="field-hint">Upload only photographs and scans you have permission to share. Avoid publishing private documents about living relatives.</p>
+      <div class="form-end"><button class="archive-action" id="mediaUploadButton" type="submit">Add to family archive <span>↗</span></button></div>
+      <div id="mediaUploadFeedback" class="form-feedback" role="status" aria-live="polite"></div>
+    </form>
+    <div class="admin-sectionhead" style="margin-top:25px"><h3>Archive items</h3><p>Photographs and records are public once uploaded.</p></div>
+    <div id="adminMediaList" class="admin-stack"></div>
+  </div>
   </div>
 </section>
 <footer class="footer">Compiled from census records, marriage indexes, military documents, obituaries, and family recollections · November 2026<br>Dates and relationships can be corrected as new records are found. No unrelated candidate ancestors are included. <span aria-hidden="true">·</span> <button class="link-home" data-goto="admin" type="button">Editor sign-in</button></footer>
 </main>
+<div id="archiveMediaModal" class="archive-media-modal" role="dialog" aria-modal="true" aria-label="Photograph or historical record" hidden><div class="archive-media-window"><button type="button" id="archiveMediaClose" class="archive-media-close">Close ×</button><div id="archiveMediaView"></div></div></div>
 <div class="veil" id="veil"></div><aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Family biography" aria-hidden="true"><button class="close" id="close">Close ✕</button><div id="profile"></div></aside>
 <noscript><div class="noscript">JavaScript must be enabled to open the interactive family tree.</div></noscript>
 <script>
@@ -159,8 +228,8 @@ const SOURCES={"marriage1894": ["1894 Milwaukee marriage index", "https://www.fa
 const groups={olderkids:['louis1896','charles1898','mary1899','joseph1900','williamM','kate1906','frank1909'],youngerkids:['lou1921','francis','bill1925','chuck','carolyn','papap'],dugaskids:['albert','laverne','sylvia','dennis','donald']};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function card(id,mini=false){let p=PEOPLE[id];const isDadGeneration=['cindy','bev','robertdad','michael','kelly'].includes(id);const isDugas=p.branch==='Dugas'||id==='laverne';const familyColor=isDadGeneration?'generation-black':isDugas?'dugas':'schreiner';return `<button type="button" class="person ${mini?'small':''} ${familyColor}" data-person="${id}" aria-label="Read biography of ${esc(p.name)}"><span class="eyebrow">${esc(p.relation)}</span><span class="pn">${esc(p.name)}</span><span class="pd">${esc(p.dates)}</span><span class="more">Read biography ↗</span></button>`}
-function pair(id,a,b){document.querySelector('#'+id).innerHTML=card(a)+'<span class="amp" aria-hidden="true">&amp;</span>'+card(b)}
-function kids(id,ids){document.querySelector('#'+id).innerHTML=ids.map(x=>card(x,true)).join('')}
+function pair(id,a,b){const target=document.getElementById(id);if(target)target.innerHTML=card(a)+'<span class="amp" aria-hidden="true">&amp;</span>'+card(b)}
+function kids(id,ids){const target=document.getElementById(id);if(target)target.innerHTML=ids.map(x=>card(x,true)).join('')}
 pair('g1','louis1872','kreszenz');pair('g2','louis1896','caroline');pair('g3','papap','laverne');kids('g2kids',groups.youngerkids);kids('g3kids',['cindy','bev','robertdad','michael']);kids('olderkids',groups.olderkids);kids('youngerkids',groups.youngerkids);pair('dugasparents','aloisius','margaret');kids('dugaskids',groups.dugaskids);pair('dugaslink','papap','laverne');
 
 const HOUSEHOLD_GROUPS=[
@@ -231,6 +300,7 @@ const STORAGE_KEY='schreiner_family_editor_session_v1';
 let session=null, isEditor=false;
 try { session=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'null') } catch(_){ session=null }
 let stories=[], leads=[], events=[], members=[], generations=[], requests=[], storyAll=[], leadAll=[], historyAll=[];
+let archiveMedia=[], archiveMediaPeople=[], recordMarks=[], archivePendingPerson=null, mediaSelectedPeople=new Set();
 let storyFilter='all', leadFilter='all', historyFilters=new Set(['family','history','sports']), reverseHistory=false;
 const $=id=>document.getElementById(id);
 const html=esc; // reuse the escaped-html helper from the original family tree
@@ -298,6 +368,22 @@ async function submitStory(e){e.preventDefault();let submit=$('storySubmit');let
 async function submitSuggestion(e){e.preventDefault();$('suggestSubmit').disabled=true;try{await post('family_suggestions',{name_or_topic:$('suggestTopic').value.trim(),details:$('suggestDetails').value.trim(),submitted_by:$('suggestBy').value.trim()});e.target.reset();msg('suggestFeedback','Research suggestion received. Thank you for the lead!')}catch(err){msg('suggestFeedback','Could not send your suggestion: '+err.message,true)}finally{$('suggestSubmit').disabled=false}}
 async function authorize(){if(!session?.access_token)return false;try{const x=await select('family_admins','user_id');if(!x?.length)throw Error('This account is not assigned as an editor. Add its user ID to family_admins in Supabase.');isEditor=true;$('editorLogin').hidden=true;$('editorWorkbench').hidden=false;$('adminNavTab').hidden=false;$('adminWho').textContent='Signed in as '+(session.user?.email||'editor');return true}catch(e){isEditor=false;$('editorWorkbench').hidden=true;$('editorLogin').hidden=false;msg('loginFeedback',e.message,true);return false}}
 async function logIn(e){e.preventDefault();msg('loginFeedback','Signing in…');try{const r=await fetch(DB_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{'apikey':PUBLIC_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:$('adminEmail').value.trim(),password:$('adminPassword').value})});const obj=await r.json();if(!r.ok)throw Error(obj.msg||obj.message||obj.error_description||'Sign-in failed');session=obj;sessionStorage.setItem(STORAGE_KEY,JSON.stringify(obj));$('adminPassword').value='';if(await authorize())await loadAdmin()}catch(err){msg('loginFeedback',err.message,true)}}
+async function registerEditor(){
+ const email=$('adminEmail').value.trim(), password=$('adminPassword').value;
+ if(!email||!password){msg('loginFeedback','Enter an email and a password first.',true);return}
+ if(password.length<10){msg('loginFeedback','Use a password of at least 10 characters.',true);return}
+ msg('loginFeedback','Creating an account…');
+ try{
+   const r=await fetch(DB_URL+'/auth/v1/signup',{method:'POST',headers:{'apikey':PUBLIC_KEY,'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+   const x=await r.json();if(!r.ok)throw Error(x.msg||x.message||x.error_description||'Registration failed');
+   $('adminPassword').value='';
+   msg('loginFeedback','Registration requested. Check your email for a confirmation link. An editor account must also be approved in Supabase. Tell the site owner which email you registered—never share your password.');
+ }catch(e){msg('loginFeedback',e.message,true)}
+}
+async function resetEditorPassword(){
+ const email=$('adminEmail').value.trim();if(!email){msg('loginFeedback','Enter the email associated with your editor account.',true);return}
+ try{const r=await fetch(DB_URL+'/auth/v1/recover',{method:'POST',headers:{'apikey':PUBLIC_KEY,'Content-Type':'application/json'},body:JSON.stringify({email})});if(!r.ok){const x=await r.json();throw Error(x.message||'Password reset failed')}msg('loginFeedback','If that account exists, a recovery email has been requested.')}catch(e){msg('loginFeedback',e.message,true)}
+}
 async function loadAdmin(){if(!isEditor)return;const q=await Promise.allSettled([select('family_suggestions','*','order=created_at.desc'),select('family_stories','*','order=created_at.desc'),select('family_research_leads','*','order=created_at.desc'),select('family_history_events','*','order=event_year.desc')]);requests=q[0].status==='fulfilled'?q[0].value:[];storyAll=q[1].status==='fulfilled'?q[1].value:[];leadAll=q[2].status==='fulfilled'?q[2].value:[];historyAll=q[3].status==='fulfilled'?q[3].value:[];$('requestCounter').textContent='('+requests.filter(x=>x.status==='new').length+')';$('reviewCounter').textContent='('+storyAll.filter(x=>x.status==='pending').length+')';renderRequests();renderReviews();renderAdminLeads();renderAdminHistory();initBioEditor();}
 const adminStatus={new:'New',reviewing:'Reviewing',completed:'Completed',archived:'Archived'};
 function renderRequests(){$('requestList').innerHTML=requests.length?requests.map(x=>`<article class="admin-item"><span class="arch-smallcaps">${html(adminStatus[x.status]||x.status)} · ${html(x.submitted_by)}</span><h4>${html(x.name_or_topic)}</h4><p>${html(x.details)}</p>${x.admin_notes?`<p><strong>Editor notes:</strong> ${html(x.admin_notes)}</p>`:''}<div class="admin-actions"><button data-req-status="reviewing" data-req-id="${x.id}">Reviewing</button><button data-req-status="completed" data-req-id="${x.id}">Completed</button><button data-req-note="${x.id}">Add note</button><button data-req-status="archived" data-req-id="${x.id}">Archive</button></div></article>`).join(''):'<p class="empty-shelf">No research requests yet.</p>'}
@@ -313,15 +399,135 @@ function renderAdminHistory(){$('adminHistoryList').innerHTML=historyAll.map(x=>
 function clearHistory(){ $('historyEditorForm').reset();$('historyEditId').value='';msg('historyEditFeedback','') }
 function fillHistory(id){let x=historyAll.find(v=>v.id===id);if(!x)return;$('historyEditId').value=x.id;$('historyEditYear').value=x.event_year;$('historyEditCategory').value=x.category;$('historyEditTitle').value=x.title;$('historyEditBody').value=x.body;$('historyEditYearLabel').value=x.year_label;$('historyEditUrl').value=x.source_url;$('historyEditPublic').checked=x.is_public;$('historyEditTitle').scrollIntoView({behavior:'smooth',block:'center'})}
 async function saveHistory(e){e.preventDefault();const title=$('historyEditTitle').value.trim();if(/\b(died|death|passed away|funeral|obituary)\b/i.test(title)){msg('historyEditFeedback','The public timeline excludes deaths. Keep death dates in biographies instead.',true);return}const id=$('historyEditId').value;const data={event_year:Number($('historyEditYear').value),category:$('historyEditCategory').value,title,body:$('historyEditBody').value.trim(),year_label:$('historyEditYearLabel').value.trim(),source_url:$('historyEditUrl').value.trim(),is_public:$('historyEditPublic').checked,updated_at:new Date().toISOString()};try{if(id)await patch('family_history_events',id,data);else await post('family_history_events',data);clearHistory();msg('historyEditFeedback','Timeline updated.');await Promise.all([loadAdmin(),loadHistory()])}catch(err){msg('historyEditFeedback',err.message,true)}}
-function chooseAdminView(v){document.querySelectorAll('[data-admin-view]').forEach(b=>b.classList.toggle('active',b.dataset.adminView===v));for(const [k,el] of Object.entries({requests:'adminRequests',review:'adminReview',leads:'adminLeads',profiles:'adminProfiles',timeline:'adminTimeline'}))$(el).hidden=k!==v}
+function chooseAdminView(v){if(v==='media'){archivePendingPerson=null;mediaPickerList();renderAdminMedia()}document.querySelectorAll('[data-admin-view]').forEach(b=>b.classList.toggle('active',b.dataset.adminView===v));for(const [k,el] of Object.entries({requests:'adminRequests',review:'adminReview',leads:'adminLeads',profiles:'adminProfiles',timeline:'adminTimeline',media:'adminMedia'}))$(el).hidden=k!==v}
 async function adminAction(target){if(target.dataset.reqStatus){await patch('family_suggestions',target.dataset.reqId,{status:target.dataset.reqStatus,updated_at:new Date().toISOString()});await loadAdmin()}else if(target.dataset.reqNote){const x=requests.find(x=>x.id===target.dataset.reqNote);if(!x)return;const value=prompt('Private note about this research request:',x.admin_notes||'');if(value===null)return;await patch('family_suggestions',x.id,{admin_notes:value.slice(0,6000),updated_at:new Date().toISOString()});await loadAdmin()}else if(target.dataset.storyStatus){const id=target.dataset.reviewId;await patch('family_stories',id,{status:target.dataset.storyStatus,updated_at:new Date().toISOString()});await Promise.all([loadAdmin(),loadStories()])}else if(target.dataset.editLead){chooseAdminView('leads');fillLead(target.dataset.editLead)}else if(target.dataset.editHistory){chooseAdminView('timeline');fillHistory(target.dataset.editHistory)}}
 document.querySelectorAll('input[name="storyScope"]').forEach(x=>x.addEventListener('change',storyScopeUI));document.querySelectorAll('input[name="storyDatePrecision"]').forEach(x=>x.addEventListener('change',storyDateUI));$('storyForm').addEventListener('submit',submitStory);$('suggestForm').addEventListener('submit',submitSuggestion);$('adminLoginForm').addEventListener('submit',logIn);$('adminLogout').addEventListener('click',()=>{signOutLocal();showTab('tree')});$('leadEditorForm').addEventListener('submit',saveLead);$('leadEditClear').addEventListener('click',clearLead);$('bioEditorForm').addEventListener('submit',saveBio);$('bioSelect').addEventListener('change',fillBio);$('historyEditorForm').addEventListener('submit',saveHistory);$('historyEditClear').addEventListener('click',clearHistory);
 document.addEventListener('click',e=>{const story=e.target.closest('[data-story-id]');if(story){openStory(stories.find(x=>x.id===story.dataset.storyId));return}const h=e.target.closest('[data-story-open]');if(h){e.preventDefault();showTab('stories');openStory(stories.find(x=>x.id===h.dataset.storyOpen));return}const target=e.target.closest('[data-admin-view]');if(target){chooseAdminView(target.dataset.adminView);return}const filter=e.target.closest('[data-story-filter]');if(filter){storyFilter=filter.dataset.storyFilter;document.querySelectorAll('[data-story-filter]').forEach(x=>x.classList.toggle('active',x===filter));renderStories();return}const lead=e.target.closest('[data-lead-filter]');if(lead){leadFilter=lead.dataset.leadFilter;document.querySelectorAll('[data-lead-filter]').forEach(x=>x.classList.toggle('active',x===lead));renderLeads();return}const event=e.target.closest('[data-history-filter]');if(event){const f=event.dataset.historyFilter;if(historyFilters.has(f))historyFilters.delete(f);else historyFilters.add(f);event.classList.toggle('active',historyFilters.has(f));renderHistory();return}if(isEditor){let a=e.target.closest('[data-req-status],[data-req-note],[data-story-status],[data-edit-lead],[data-edit-history]');if(a){adminAction(a).catch(err=>alert(err.message));return}}});$('historyDirection').addEventListener('click',()=>{reverseHistory=!reverseHistory;$('historyDirection').textContent=reverseHistory?'↑ Oldest first':'↓ Newest first';renderHistory()});
+// Family image and record viewer. One item can be tagged with many people.
+const ARCHIVE_BUCKET='family-archive';
+const archiveUrl=path=>DB_URL+'/storage/v1/object/public/'+ARCHIVE_BUCKET+'/'+String(path||'').split('/').map(encodeURIComponent).join('/');
+const mediaTagged=(id,kind)=>archiveMedia.filter(m=>m.kind===kind&&archiveMediaPeople.some(x=>x.media_id===m.id&&x.person_id===id));
+const isScannedImage=m=>/^image\//.test(m.mime_type||'');
+function archiveTile(m){
+ const thumb=isScannedImage(m)?`<img loading="lazy" src="${html(archiveUrl(m.storage_path))}" alt="${html(m.title)}"/>`:`<div style="height:132px;display:grid;place-items:center;font-size:35px">▤</div>`;
+ return `<button type="button" class="archive-media-tile" data-media-open="${html(m.id)}">${thumb}<span class="archive-media-tile-text">${html(m.title)}<span class="archive-media-tile-detail" style="display:block">${html(m.date_label||m.archive_name|| (m.kind==='record'?'Historical record':'Family photograph'))}</span></span></button>`;
+}
+async function loadArchiveMedia(){
+ try{
+ const [media,people]=await Promise.all([
+  select('family_media','id,kind,title,caption,storage_path,mime_type,date_label,archive_name,source_url,transcription,translation,highlight_regions,created_at','is_public=eq.true&order=created_at.desc'),
+  select('family_media_people','media_id,person_id')
+ ]);
+ archiveMedia=media||[];archiveMediaPeople=people||[];
+ $('archiveDocumentList').innerHTML=archiveMedia.filter(m=>m.kind==='record').map(archiveTile).join('')||'<p class="mini">The first scans have not been uploaded yet. Until then, the original record links above remain available.</p>';
+ if(isEditor)renderAdminMedia();
+ }catch(err){$('archiveDocumentList').innerHTML='<p class="mini">The document gallery could not be loaded. The original record links above are still available.</p>';}
+}
+function addMediaToProfile(id){
+ const profile=$('profile');if(!profile)return;
+ const photos=mediaTagged(id,'photo'),records=mediaTagged(id,'record');
+ const photoSection=document.createElement('section');photoSection.className='profile-photo-gallery';
+ photoSection.innerHTML=`<h3>Family photographs</h3>${photos.length?`<div class="archive-media-grid">${photos.map(archiveTile).join('')}</div>`:'<p class="mini">No photographs have been added yet.</p>'}<button type="button" class="archive-link-button" data-photo-add-person="${html(id)}">${isEditor?'Add a photograph':'Have a family photo? Send a note'}</button>`;
+ profile.appendChild(photoSection);
+ if(records.length){const section=document.createElement('section');section.className='profile-record-gallery';section.innerHTML=`<h3>Original records</h3><div class="archive-media-grid">${records.map(archiveTile).join('')}</div>`;profile.appendChild(section)}
+ const hint=document.createElement('div');hint.innerHTML=`<button type="button" class="archive-link-button" data-suggest-person="${html(id)}">Know something about ${html(PEOPLE[id]?.name||'this relative')}?</button>`;profile.appendChild(hint);
+}
+function recordRectangle(region){
+ const n=v=>Math.max(0,Math.min(100,Number(v)||0));
+ return `left:${n(region.x)}%;top:${n(region.y)}%;width:${n(region.w)}%;height:${n(region.h)}%`;
+}
+function openArchiveMedia(id){
+ const m=archiveMedia.find(x=>x.id===id);if(!m)return;
+ const tagged=archiveMediaPeople.filter(x=>x.media_id===id).map(x=>fullName(x.person_id));
+ const credits=tagged.length?`<p><strong>People:</strong> ${tagged.map(html).join(' · ')}</p>`:'';
+ const source=m.source_url&&/^https:\/\//.test(m.source_url)?`<a href="${html(m.source_url)}" target="_blank" rel="noopener noreferrer">Open original source ↗</a>`:'';
+ const url=archiveUrl(m.storage_path);
+ const highlights=Array.isArray(m.highlight_regions)?m.highlight_regions.filter(x=>x&&typeof x==='object'):[];
+ const media=isScannedImage(m)?`<div class="archive-scan-wrap"><img src="${html(url)}" alt="${html(m.title)}"/>${m.kind==='record'?highlights.map(h=>`<span class="archive-region" style="${recordRectangle(h)}"></span>`).join(''):''}</div>`:`<p><a href="${html(url)}" target="_blank" rel="noopener noreferrer">View original PDF ↗</a></p>`;
+ const transcript=m.kind==='record'?(m.transcription||m.translation?`<div class="archive-record-text">${m.transcription?`<div><h3>Transcription</h3><pre>${html(m.transcription)}</pre></div>`:''}${m.translation?`<div><h3>Translation</h3><pre>${html(m.translation)}</pre></div>`:''}</div>`:'<p class="mini">A transcription or translation has not yet been added.</p>'):'';
+ $('archiveMediaView').innerHTML=`<div class="arch-smallcaps">${m.kind==='record'?'Original document · Record Reader':'Family photograph'}</div><h2 id="archiveMediaTitle">${html(m.title)}</h2><p>${html([m.date_label,m.archive_name].filter(Boolean).join(' · '))}</p>${media}<p>${html(m.caption||'')}</p>${credits}${transcript}${source?`<p>${source}</p>`:''}`;
+ $('archiveMediaModal').hidden=false;document.body.style.overflow='hidden';$('archiveMediaClose').focus();
+}
+function closeArchiveMedia(){ $('archiveMediaModal').hidden=true;document.body.style.overflow=$('drawer').classList.contains('open')?'hidden':''; }
+function mediaPickerList(filter=''){
+ if(archivePendingPerson)mediaSelectedPeople.add(archivePendingPerson);
+ $('mediaPeoplePicker').innerHTML=members.filter(m=>m.is_public!==false&&m.display_name.toLowerCase().includes(filter.toLowerCase())).sort((a,b)=>a.display_name.localeCompare(b.display_name)).map(m=>`<label><input type="checkbox" value="${html(m.id)}" ${mediaSelectedPeople.has(m.id)?'checked':''}/> ${html(m.display_name)}</label>`).join('')||'<span class="mini">No matches</span>';
+}
+function recordPreviewRefresh(){
+ $('mediaRecordPreviewMarks').innerHTML=recordMarks.map(m=>`<span class="archive-region" style="${recordRectangle(m)}"></span>`).join('');
+ $('mediaMarksCount').textContent=recordMarks.length?recordMarks.length+' highlighted area'+(recordMarks.length!==1?'s':''):'';
+}
+let recordPreviewUrl=null,dragStart=null;
+function mediaFilePreview(){
+ recordMarks=[];recordPreviewRefresh();
+ if(recordPreviewUrl){URL.revokeObjectURL(recordPreviewUrl);recordPreviewUrl=null}
+ const file=$('mediaFile').files[0];if($('mediaKind').value!=='record'||!file||!/^image\//.test(file.type)){$('mediaRecordPreview').hidden=true;return}
+ recordPreviewUrl=URL.createObjectURL(file);$('mediaRecordPreviewImage').src=recordPreviewUrl;$('mediaRecordPreview').hidden=false;
+}
+function pointOnRecord(e){const r=$('mediaRecordPreview').getBoundingClientRect();return {x:Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100)),y:Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100))};}
+function installRecordDrawing(){const host=$('mediaRecordPreview');host.addEventListener('pointerdown',e=>{dragStart=pointOnRecord(e);host.setPointerCapture(e.pointerId)});host.addEventListener('pointerup',e=>{if(!dragStart)return;const p=pointOnRecord(e),x=Math.min(p.x,dragStart.x),y=Math.min(p.y,dragStart.y),w=Math.abs(p.x-dragStart.x),h=Math.abs(p.y-dragStart.y);if(w>1&&h>1){recordMarks.push({x:+x.toFixed(2),y:+y.toFixed(2),w:+w.toFixed(2),h:+h.toFixed(2)});recordPreviewRefresh()}dragStart=null;});host.addEventListener('pointercancel',()=>{dragStart=null});}
+function renderAdminMedia(){
+ $('adminMediaList').innerHTML=archiveMedia.map(m=>`<div class="admin-row"><strong>${html(m.title)}</strong> · ${html(m.kind)}<p>${html(m.date_label||'')}</p><button type="button" class="order-toggle" data-media-open="${html(m.id)}">View</button></div>`).join('')||'<p class="mini">No photographs or scanned records uploaded yet.</p>';
+}
+async function uploadMedia(e){
+ e.preventDefault();if(!isEditor||!session?.access_token){msg('mediaUploadFeedback','Sign in as an approved editor to upload.',true);return}
+ const file=$('mediaFile').files?.[0];const kind=$('mediaKind').value;const selected=[...mediaSelectedPeople];
+ if(!file||!selected.length){msg('mediaUploadFeedback','Select a file and at least one family member.',true);return}
+ if(file.size>12582912||file.size<1){msg('mediaUploadFeedback','Choose a file no larger than 12 MB.',true);return}
+ const types={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','application/pdf':'pdf'};
+ if(!types[file.type]||(kind==='photo'&&file.type==='application/pdf')){msg('mediaUploadFeedback','Photographs must be JPG, PNG, or WebP; records can also be PDF.',true);return}
+ const title=$('mediaTitle').value.trim();if(title.length<2){msg('mediaUploadFeedback','Add a title.',true);return}
+ $('mediaUploadButton').disabled=true;msg('mediaUploadFeedback','Uploading your file…');
+ const uid=crypto.randomUUID?.()||Array.from(crypto.getRandomValues(new Uint8Array(16))).map(n=>n.toString(16).padStart(2,'0')).join('');const path=kind+'/'+uid+'.'+types[file.type];let uploaded=false;
+ try{
+  const res=await fetch(DB_URL+'/storage/v1/object/'+ARCHIVE_BUCKET+'/'+path,{method:'POST',headers:{'apikey':PUBLIC_KEY,'Authorization':'Bearer '+session.access_token,'Content-Type':file.type,'cache-control':'3600','x-upsert':'false'},body:file});
+  if(!res.ok){const x=await res.json().catch(()=>({}));throw Error(x.message||x.error||'Upload failed ('+res.status+')')}
+  uploaded=true;
+  const data={kind,title,caption:$('mediaCaption').value.trim(),storage_path:path,mime_type:file.type,date_label:$('mediaDateLabel').value.trim(),archive_name:$('mediaArchiveName').value.trim(),source_url:kind==='record'?$('mediaSourceUrl').value.trim():'',transcription:kind==='record'?$('mediaTranscription').value.trim():'',translation:kind==='record'?$('mediaTranslation').value.trim():'',highlight_regions:kind==='record'?recordMarks:[],is_public:true};
+  const result=await db('family_media','',{method:'POST',headers:{'Prefer':'return=representation'},body:JSON.stringify(data)});
+  if(!result?.[0]?.id)throw Error('Upload completed, but no archive record was returned.');
+  const mediaId=result[0].id;
+  try{
+   await db('family_media_people','',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify(selected.map(person_id=>({media_id:mediaId,person_id})))});
+  }catch(err){await db('family_media','id=eq.'+encodeURIComponent(mediaId),{method:'DELETE'});throw err}
+  $('archiveMediaForm').reset();archivePendingPerson=null;mediaSelectedPeople.clear();$('mediaPeopleFilter').value='';mediaPickerList();recordMarks=[];recordPreviewRefresh();$('recordMediaFields').hidden=true;$('mediaRecordPreview').hidden=true;
+  msg('mediaUploadFeedback','Saved. This '+(kind==='photo'?'photo':'record')+' will appear in the gallery of every selected person.');
+  await loadArchiveMedia();
+ }catch(err){msg('mediaUploadFeedback',err.message+(uploaded?' You may need to remove the orphan file in Supabase Storage.':''),true)}
+ finally{$('mediaUploadButton').disabled=false}
+}
+function fromPersonToMedia(id){
+ if(!isEditor){fromPersonToSuggestion(id);return}
+ closePerson();showTab('admin');chooseAdminView('media');archivePendingPerson=id;mediaSelectedPeople.add(id);
+ $('mediaPeopleFilter').value='';mediaPickerList();$('mediaTitle').focus();
+}
+function fromPersonToSuggestion(id){
+ closePerson();showTab('suggest');$('suggestTopic').value=PEOPLE[id]?.name||'';
+ $('suggestDetails').focus();
+}
+$('mediaKind').addEventListener('change',()=>{$('recordMediaFields').hidden=$('mediaKind').value!=='record';mediaFilePreview()});
+$('mediaFile').addEventListener('change',mediaFilePreview);
+$('mediaPeopleFilter').addEventListener('input',()=>mediaPickerList($('mediaPeopleFilter').value));
+$('mediaPeoplePicker').addEventListener('change',e=>{if(e.target.matches('input[type=checkbox]')){if(e.target.checked)mediaSelectedPeople.add(e.target.value);else mediaSelectedPeople.delete(e.target.value)}});
+$('mediaClearMarks').addEventListener('click',()=>{recordMarks=[];recordPreviewRefresh()});
+$('archiveMediaForm').addEventListener('submit',uploadMedia);
+$('archiveMediaClose').addEventListener('click',closeArchiveMedia);
+$('archiveMediaModal').addEventListener('click',e=>{if(e.target===$('archiveMediaModal'))closeArchiveMedia()});
+installRecordDrawing();
+$('adminCreateAccount').addEventListener('click',registerEditor);
+$('adminResetPassword').addEventListener('click',resetEditorPassword);
+document.addEventListener('click',e=>{
+ const photo=e.target.closest('[data-photo-add-person]');if(photo){fromPersonToMedia(photo.dataset.photoAddPerson);return}
+ const suggestion=e.target.closest('[data-suggest-person]');if(suggestion){fromPersonToSuggestion(suggestion.dataset.suggestPerson);return}
+ const pic=e.target.closest('[data-media-open]');if(pic){openArchiveMedia(pic.dataset.mediaOpen);return}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('archiveMediaModal').hidden)closeArchiveMedia()});
+
 // Profile drawers gain a link to the family stories without altering the original biography content.
 const originalOpenPerson=openPerson;
-openPerson=function(id){originalOpenPerson(id);const matching=stories.filter(s=>s.subject_scope==='member'&&s.subject_member_id===id);if(matching.length){let section=document.createElement('section');section.innerHTML=`<h3>Family stories</h3><p class="mini">${matching.length} recollection${matching.length===1?'':'s'} mentioning this relative</p><div class="profile-sources">${matching.map(s=>`<a href="#stories" data-story-open="${html(s.id)}">${html(s.title)}</a>`).join('')}</div>`;$('profile').appendChild(section)}};
+openPerson=function(id){originalOpenPerson(id);const matching=stories.filter(s=>s.subject_scope==='member'&&s.subject_member_id===id);if(matching.length){let section=document.createElement('section');section.innerHTML=`<h3>Family stories</h3><p class="mini">${matching.length} recollection${matching.length===1?'':'s'} mentioning this relative</p><div class="profile-sources">${matching.map(s=>`<a href="#stories" data-story-open="${html(s.id)}">${html(s.title)}</a>`).join('')}</div>`;$('profile').appendChild(section)};addMediaToProfile(id)};
 // Friendly login route; ordinary family visitors only see public content.
-(async()=>{buildSelects();await Promise.allSettled([loadMembers(),loadStories(),loadHistory(),loadLeads()]);if(session?.access_token){if(await authorize()){await loadAdmin()}else{signOutLocal()}}})();
+(async()=>{buildSelects();await Promise.allSettled([loadMembers(),loadStories(),loadHistory(),loadLeads(),loadArchiveMedia()]);mediaPickerList();if(session?.access_token){if(await authorize()){await loadAdmin()}else{signOutLocal()}}})();
 })();
 </script>
 </body></html>
