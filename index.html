@@ -46,11 +46,36 @@
 .person.generation-black{border-top-color:#282322}
 .person.generation-black .pn{color:#292321}
 .person.generation-black .more{color:#4c413a}
+
+/* Family households: a compact family register, never a second sprawling tree. */
+.households-heading{margin-bottom:30px}.households-heading .kicker{color:#9f382f;margin-bottom:9px}
+.household-era{margin:36px 0 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.household-era h3{margin:0;font:normal 25px/1.2 Georgia,serif}.household-era small{color:var(--muted);font-size:12px}
+.household-era:after{content:"";height:1px;flex:1;background:var(--line);min-width:34px}
+.household-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.household-register-card{background:var(--white);border:1px solid #e1d5c8;border-radius:13px;padding:19px 21px;box-shadow:0 3px 10px #1e11100b}
+.household-register-card h4{font:normal 23px/1.2 Georgia,serif;margin:0 0 6px;color:#39221f}
+.household-register-card .household-intro{color:var(--muted);margin:0 0 14px;font-size:12px;line-height:1.55}
+.household-adults{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.household-adult{background:#fbf5ed;border:1px solid #e6d4c3;padding:9px 11px;border-radius:8px;display:flex;flex-direction:column;gap:1px;min-width:0;flex:1 1 145px;text-align:left}
+.household-adult span{color:#7e7169;font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:750}
+.household-adult strong{color:#492e29;font:normal 17px/1.2 Georgia,serif;overflow-wrap:anywhere}
+.household-adult:hover,.household-member:hover{border-color:#b82d2c;background:#fff9f4}
+.household-divider{border-top:1px solid #e9dfd4;margin-bottom:9px;padding-top:10px;color:#78695e;font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:750}
+.household-children{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.household-children li+li{border-top:1px solid #eee7de}
+.household-member{border:1px solid transparent;display:flex;width:100%;gap:10px;justify-content:space-between;align-items:center;text-align:left;border-radius:7px;background:transparent;padding:10px 8px;color:#3c3531}
+.household-member-name{font-weight:690;font-size:13px}.household-member-note{display:block;color:#8e7d72;font-size:11px;font-weight:400;margin-top:2px}
+.household-member .household-chevron{font-size:18px;color:#bb8c4d;line-height:1;flex:none}
+.household-empty{margin:10px 0;color:#8c7b70;font-size:12px;font-style:italic}
+.household-footnote{margin:11px 0 0;font-size:11px;color:#88766c;line-height:1.5}
+.households-postscript{font-size:12px;color:#807066;border-top:1px solid var(--line);margin:25px 0 0;padding-top:17px;max-width:830px}
+@media(max-width:690px){.household-grid{grid-template-columns:1fr}.household-register-card{padding:17px 16px}.household-era{margin-top:28px}.household-era h3{font-size:22px}}
 </style></head>
 <body><header class="hero"><div class="frame"><div class="kicker">Our family history · 2026 family edition</div><h1>The Schreiner Family</h1><p>A living family tree from Germany to Milwaukee and Pittsburgh, with stories, records, and a small Dugas branch.</p><div class="hero-meta"><span>Tap a name for a biography</span><span>Share with family</span><span>Careful with uncertain details</span></div></div></header><div class="rule"></div>
 <nav class="topnav"><div class="frame navscroll" role="tablist" aria-label="Family views">
 <button class="tab" data-tab="tree" aria-selected="true">Family tree</button>
-<button class="tab" data-tab="siblings" aria-selected="false">Brothers & sisters</button>
+<button class="tab" data-tab="siblings" aria-selected="false">Households</button>
 <button class="tab" data-tab="dugas" aria-selected="false">Dugas branch</button>
 <button class="tab" data-tab="people" aria-selected="false">All biographies</button>
 <button class="tab" data-tab="stories" aria-selected="false">Family stories</button><button class="tab" data-tab="history" aria-selected="false">Family in history</button><button class="tab" data-tab="notebook" aria-selected="false">Research notebook</button><button class="tab" data-tab="records" aria-selected="false">Records & research</button><button class="tab" id="adminNavTab" data-tab="admin" aria-selected="false" hidden>Editor's desk</button>
@@ -64,10 +89,15 @@
 <div class="linkstep"></div><div class="branchgroup"><div class="groupbar"><h3>Their four children</h3><p>Names confirmed in both parents’ obituaries</p></div><div class="kids" id="g3kids"></div></div>
 <div class="note"><strong>For family sharing:</strong> Dates for living relatives are intentionally not listed. Additional descendants and individual life stories can be added as family members confirm them.</div>
 </section>
-<section class="panel" id="siblings"><h2 class="section-title">The brothers and sisters</h2><p class="lede">Two generations of siblings share many of the same names. The separate groups here prevent Uncle Bill or Uncle Chuck from being confused with their older namesakes.</p>
-<div class="branchgroup"><div class="groupbar"><h3>Children of Louis Sr. and Kreszenz</h3><p>Milwaukee and Pittsburgh, 1896–1909</p></div><div class="kids" id="olderkids"></div><div class="note">The 1898 Charles/Joseph records and two different dates associated with Mary are discussed in their profiles. We have not added duplicate or unidentified children as separate family members.</div></div>
-<hr class="divider"><div class="branchgroup"><div class="groupbar"><h3>Children of Louis (1896) and Caroline</h3><p>The six siblings in the 1940 household</p></div><div class="kids three" id="youngerkids"></div></div>
-<div class="preview"><strong>More of the family</strong><p>A few spouses and children have supporting records or family testimony. Explore them in the biography directory.</p><button class="btn" data-goto="people">Browse everyone ↗</button></div></section>
+<section class="panel" id="siblings">
+  <div class="households-heading">
+    <div class="kicker">Families / household register</div>
+    <h2 class="section-title">The family households</h2>
+    <p class="lede">Each family in one place: the adults at the top and their children below. Open a name for that person's story, sources, and the next generation. This register complements the straight-line family tree without adding branches to it.</p>
+  </div>
+  <div id="householdRegister" aria-live="polite"></div>
+  <p class="households-postscript">Only documented or family-confirmed relationships appear here. The Shubiak/Caswell family history will remain a separate project; Rickey still belongs with his brothers in Kelly's household.</p>
+</section>
 <section class="panel" id="dugas"><h2 class="section-title">The Dugas family</h2><p class="lede">A smaller family branch focused on LaVerne, her parents and her brothers and sister. The relationships here are corroborated by Donald, LaVerne and Sylvia’s obituaries.</p>
 <div class="centered"><div class="tag">LaVerne’s parents</div><div class="pair" id="dugasparents"></div></div><div class="linkstep"></div>
 <div class="branchgroup"><div class="groupbar"><h3>The five Dugas children</h3><p>Albert · LaVerne · Sylvia · Dennis · Donald</p></div><div class="kids five" id="dugaskids"></div></div><div class="linkstep"></div>
@@ -132,6 +162,34 @@ function card(id,mini=false){let p=PEOPLE[id];const isDadGeneration=['cindy','be
 function pair(id,a,b){document.querySelector('#'+id).innerHTML=card(a)+'<span class="amp" aria-hidden="true">&amp;</span>'+card(b)}
 function kids(id,ids){document.querySelector('#'+id).innerHTML=ids.map(x=>card(x,true)).join('')}
 pair('g1','louis1872','kreszenz');pair('g2','louis1896','caroline');pair('g3','papap','laverne');kids('g2kids',groups.youngerkids);kids('g3kids',['cindy','bev','robertdad','michael']);kids('olderkids',groups.olderkids);kids('youngerkids',groups.youngerkids);pair('dugasparents','aloisius','margaret');kids('dugaskids',groups.dugaskids);pair('dugaslink','papap','laverne');
+
+const HOUSEHOLD_GROUPS=[
+ {name:'Earlier households',note:'The generations documented in census and family records',homes:[
+  {title:'Louis Sr. & Kreszenz',parents:['louis1872','kreszenz'],children:['louis1896','charles1898','mary1899','joseph1900','williamM','kate1906','frank1909'],intro:'The original Milwaukee and Pittsburgh household.',note:'Names and historical birth details are explained individually in their records.'},
+  {title:'Louis & Caroline',parents:['louis1896','caroline'],children:['lou1921','francis','bill1925','chuck','carolyn','papap'],intro:'The six children shown in the 1940 Pittsburgh household.'},
+  {title:'Robert & LaVerne',parents:['papap','laverne'],children:['cindy','bev','robertdad','michael'],intro:'Papap and LaVerne’s four children.'}
+ ]},
+ {name:'Their families',note:'Recent generations and the households they built',homes:[
+  {title:'Bob & Kelly',parents:['robertdad','kelly'],children:['robert_v_ii','william_brother','thomas',{id:'richard_caswell',note:'Kelly’s son · brother of Bobby, Billy and Thomas'}],intro:'Four brothers in Kelly’s family.',note:'Richard’s Shubiak/Caswell ancestry is a separate research branch; his father is not listed as part of the Schreiner lineage.'},
+  {title:'Cynthia’s family',parents:['cindy'],children:[{id:'kurt_getty',note:'From Cynthia’s first marriage'},{id:'wayne_getty',note:'From Cynthia’s first marriage'},'kerri_loeb'],intro:'Aunt Cindy’s children.',note:'Don Loeb is Cynthia’s husband; the children are listed under Cynthia without assuming the father of each.'},
+  {title:'Bev’s family',parents:['bev'],children:['leah_caputo','jenna_caputo'],intro:'Bev’s two daughters; their children are noted inside their own profiles.'},
+  {title:'Mike’s family',parents:['michael','angel_shulin'],children:['michael_mario','allison_mike'],intro:'Uncle Mike and Angel Shulin are the parents of Michael Mario and Allison.',note:'This lists shared parentage; it does not claim a marriage.'},
+  {title:'Uncle Bill’s family',parents:['bill1925'],children:['mark_bill','alan1','charles_bill_son'],intro:'The three sons named by Pops. Alan Jr. is listed in Alan’s biography.',note:'Mark is the oldest; Charles has passed away.'},
+  {title:'Uncle Lou’s family',parents:['lou1921','marye'],children:['lewisjr'],intro:'Their documented son Louis Francis Jr.; additional descendants appear in his profile.'},
+  {title:'Carolyn & Karl’s family',parents:['carolyn','karl'],children:['wuenstel_carolyna','wuenstel_mary','wuenstel_carl'],intro:'Three children named in Carolyn’s obituary. Grandchildren appear inside her biography.'}
+ ]}
+];
+function renderHouseholds(){
+ const root=document.getElementById('householdRegister');if(!root)return;
+ const relativeButton=(id,role,subtitle)=>{
+   const p=PEOPLE[id];
+   if(!p)return `<span class="household-empty">More family details are loading…</span>`;
+   if(role==='adult')return `<button type="button" class="household-adult" data-person="${esc(id)}"><span>Parent / adult</span><strong>${esc(p.name)}</strong></button>`;
+   return `<li><button type="button" class="household-member" data-person="${esc(id)}"><span><span class="household-member-name">${esc(p.name)}</span>${subtitle?`<span class="household-member-note">${esc(subtitle)}</span>`:''}</span><span class="household-chevron" aria-hidden="true">›</span></button></li>`;
+ };
+ root.innerHTML=HOUSEHOLD_GROUPS.map(group=>`<div class="household-era"><h3>${esc(group.name)}</h3><small>${esc(group.note)}</small></div><div class="household-grid">${group.homes.map(h=>`<section class="household-register-card"><h4>${esc(h.title)}</h4><p class="household-intro">${esc(h.intro)}</p><div class="household-adults">${h.parents.map(id=>relativeButton(id,'adult')).join('')}</div><div class="household-divider">Children</div><ul class="household-children">${h.children.map(c=>typeof c==='string'?relativeButton(c,'child'):relativeButton(c.id,'child',c.note)).join('')}</ul>${h.note?`<p class="household-footnote">${esc(h.note)}</p>`:''}</section>`).join('')}</div>`).join('');
+}
+renderHouseholds();
 let activeTab='tree';function showTab(id){activeTab=id;document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',String(x.dataset.tab===id)));window.scrollTo({top:0,behavior:'smooth'});}
 let lastFocus=null;
 let familyProfileLinks=[];
@@ -219,7 +277,7 @@ async function loadMembers(){try{
     if(Array.isArray(m.profile_facts)&&m.profile_facts.length)p.facts=m.profile_facts;
     if(Array.isArray(m.profile_source_keys)&&m.profile_source_keys.length)p.sources=m.profile_source_keys;
   });
-  pair('g1','louis1872','kreszenz');pair('g2','louis1896','caroline');pair('g3','papap','laverne');kids('g2kids',groups.youngerkids);kids('g3kids',['cindy','bev','robertdad','michael']);kids('olderkids',groups.olderkids);kids('youngerkids',groups.youngerkids);pair('dugasparents','aloisius','margaret');kids('dugaskids',groups.dugaskids);pair('dugaslink','papap','laverne');directory($('personSearch').value||'');
+  pair('g1','louis1872','kreszenz');pair('g2','louis1896','caroline');pair('g3','papap','laverne');kids('g2kids',groups.youngerkids);kids('g3kids',['cindy','bev','robertdad','michael']);kids('olderkids',groups.olderkids);kids('youngerkids',groups.youngerkids);pair('dugasparents','aloisius','margaret');kids('dugaskids',groups.dugaskids);pair('dugaslink','papap','laverne');directory($('personSearch').value||'');renderHouseholds();
 }catch(e){console.warn('Archive directory unavailable; preserving original tree',e)}
   buildSelects();
 }
